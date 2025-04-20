@@ -24,7 +24,14 @@ jobs:
       # Checkout repository
       # https://github.com/actions/checkout
       - name: Checkout repository
+        if: ${{ inputs.artifact-name == '' }}
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Download repository artifact
+        if: ${{ inputs.artifact-name != '' }}
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: ${{ github.workspace }}
       # Set up QEMU
       # https://github.com/docker/setup-qemu-action
       - name: Set up QEMU
@@ -70,6 +77,11 @@ on:
         default: ${{ github.workspace }}
         description: "Path to your repository's Dockerfile"
         required: false
+        type: string
+      artifact-name:
+        description: "Name of an already-uploaded artifact whose contents will be used instead of running a git checkout (leave empty to use checkout)."
+        required: false
+        default: ""
         type: string
       image-name:
         description: "The name of the image as published in the registry"
