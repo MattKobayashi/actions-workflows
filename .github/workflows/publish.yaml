@@ -12,7 +12,7 @@ jobs:
         id: registry-org
         if: inputs.registry-org == 'undefined'
         run: |
-          echo "REGISTRY_ORG=${GITHUB_ACTOR,,}" >> $GITHUB_OUTPUT
+          echo "REGISTRY_ORG=${GITHUB_REPOSITORY_OWNER,,}" >> $GITHUB_OUTPUT
   publish:
     name: Image
     runs-on: ubuntu-24.04
