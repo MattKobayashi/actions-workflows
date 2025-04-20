@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/MattKobayashi/actions-workflows/compare/v1.0.2...v1.0.3) (2025-04-20)
+
+
+### Bug Fixes
+
+* Default registry-org to repository owner ([#12](https://github.com/MattKobayashi/actions-workflows/issues/12)) ([e22ca27](https://github.com/MattKobayashi/actions-workflows/commit/e22ca27e0807bfd846f97ccbeadda9ea49712b2d))
+
 ## [1.0.2](https://github.com/MattKobayashi/actions-workflows/compare/v1.0.1...v1.0.2) (2025-04-20)
 
 
