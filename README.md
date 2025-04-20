@@ -1,6 +1,6 @@
-# publish.yaml — Re‑usable GitHub Actions workflow for container images
+# `publish.yaml` — GitHub Actions workflow for publishing container images
 
-This repository contains `.github/workflows/publish.yaml`, a _re‑usable_ GitHub Actions workflow that builds and publishes multi‑architecture container images with Docker Buildx and QEMU.  
+`.github/workflows/publish.yaml` is a GitHub Actions workflow that builds and publishes multi‑architecture container images with Docker Buildx and QEMU.  
 It is meant to be **called from another workflow file** in the _consuming_ repository.
 
 ---
@@ -10,22 +10,21 @@ It is meant to be **called from another workflow file** in the _consuming_ repos
 Create a workflow in your project (e.g. `.github/workflows/publish-image.yml`) and call the workflow from this repository:
 
 ```yaml
-name: Publish image
-on:
-  push:
-    # Only build/push when a git tag is created
-    tags:
-      - 'v*.*.*'      # e.g. v1.2.3
-
 jobs:
   publish:
-    uses: <OWNER>/<REPO>@<REF>  # e.g. my-org/reusable-publish/.github/workflows/publish.yaml@v1
+    uses: MattKobayashi/actions-workflows@v1.0.0
     with:
       image-name: my‑app        # REQUIRED — name of the image on the registry
       dockerfile-path: ./       # OPTIONAL — folder that contains the Dockerfile (default: repo root)
       registry-url: ghcr.io     # OPTIONAL — registry host (default: ghcr.io)
       registry-org: my‑org      # OPTIONAL — org/user on registry (defaults to `${{ github.actor }}` lower‑case)
     secrets: inherit            # Gives the called workflow access to GITHUB_TOKEN
+name: Publish image
+on:
+  push:
+    # Only build/push when a git tag is created
+    tags:
+      - 'v*.*.*'      # e.g. v1.2.3
 ```
 
 ---
@@ -34,10 +33,11 @@ jobs:
 
 | Name            | Required | Default                    | Description                                                                                          |
 | --------------- | -------- | -------------------------- | ---------------------------------------------------------------------------------------------------- |
-| `image-name`    | ✔︎       | —                          | Name of the image in the registry (`<registry-url>/<registry-org>/<image-name>`).                    |
-| `dockerfile-path` |         | `${{ github.workspace }}` | Path (file or directory) that is passed as the Buildx context.                                       |
+| `image-name`    | ✔︎       | —                          | Name of the image in the container registry (`<registry-url>/<registry-org>/<image-name>`).                    |
+| `dockerfile-path` |         | `/` | Path (file or directory) that is passed as the Buildx context.                                       |
+| `platforms` |       | `linux/amd64` | A comma-separated list of platforms to build images for (e.g. `linux/amd64,linux/arm64`)       |
 | `registry-url`  |          | `ghcr.io`                  | Registry host to log in to (e.g. `ghcr.io`, `docker.io`).                                            |
-| `registry-org`  |          | `${{ github.actor }}` (lc) | Organisation / user namespace on the registry (must be lower‑case for GHCR).                         |
+| `registry-org`  |          | `${{ github.actor }}` (lower-case) | Organisation / user namespace on the registry (must be lower‑case for `ghcr.io`).                         |
 
 ---
 
