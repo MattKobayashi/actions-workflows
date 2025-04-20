@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Select repository organisation
         id: registry-org
-        if: inputs.registry-org == ''
+        if: inputs.registry-org == 'undefined'
         run: |
           echo "REGISTRY_ORG=${GITHUB_ACTOR,,}" >> $GITHUB_OUTPUT
   publish:
@@ -88,6 +88,7 @@ on:
         required: false
         type: string
       registry-org:
+        default: "undefined"
         description: "The organisation on the container registry to publish to (e.g. your GitHub username [must be lower-case])"
         required: false
         type: string
