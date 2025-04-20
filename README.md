@@ -19,12 +19,12 @@ jobs:
       registry-url: ghcr.io     # OPTIONAL — registry host (default: ghcr.io)
       registry-org: my‑org      # OPTIONAL — org/user on registry (defaults to `${{ github.actor }}` lower‑case)
     secrets: inherit            # Gives the called workflow access to GITHUB_TOKEN
-name: Publish image
+name: Publish
 on:
-  push:
-    # Only build/push when a git tag is created
-    tags:
-      - 'v*.*.*'      # e.g. v1.2.3
+  release:
+    # Only build a new image alongside published releases
+    types:
+      - published
 ```
 
 ---
