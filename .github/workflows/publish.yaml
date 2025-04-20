@@ -24,7 +24,14 @@ jobs:
       # Checkout repository
       # https://github.com/actions/checkout
       - name: Checkout repository
+        if: ${{ inputs.download-repo-artifact == '' }}
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Download repository artifact
+        if: ${{ inputs.download-repo-artifact != '' }}
+        uses: actions/download-artifact@c7bf9edeb460a3e933cf103ecc9c75fb9e9e8f85 # v4.1.7
+        with:
+          name: ${{ inputs.download-repo-artifact }}
+          path: ${{ github.workspace }}
       # Set up QEMU
       # https://github.com/docker/setup-qemu-action
       - name: Set up QEMU
@@ -89,4 +96,9 @@ on:
         default: "undefined"
         description: "The organisation on the container registry to publish to (e.g. your GitHub username [must be lower-case])"
         required: false
+        type: string
+      download-repo-artifact:
+        description: "Name of an already‑uploaded artifact whose contents will be used instead of running a git checkout (leave empty to use checkout)."
+        required: false
+        default: ""
         type: string
