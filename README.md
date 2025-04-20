@@ -15,10 +15,10 @@ jobs:
     uses: MattKobayashi/actions-workflows@v1.0.0
     with:
       image-name: my‑app        # REQUIRED — name of the image on the registry
-      dockerfile-path: ./       # OPTIONAL — folder that contains the Dockerfile (default: repo root)
-      registry-url: ghcr.io     # OPTIONAL — registry host (default: ghcr.io)
-      registry-org: my‑org      # OPTIONAL — org/user on registry (defaults to `${{ github.actor }}` lower‑case)
-    secrets: inherit            # Gives the called workflow access to GITHUB_TOKEN
+      dockerfile-path: ./       # OPTIONAL — folder that contains the Dockerfile (default: `GITHUB_WORKSPACE`)
+      registry-url: ghcr.io     # OPTIONAL — registry host (default: `ghcr.io`)
+      registry-org: my‑org      # OPTIONAL — org/user on registry (defaults to `GITHUB_REPOSITORY_OWNER` lower‑case)
+    secrets: inherit            # Gives the called workflow access to `GITHUB_TOKEN`
 name: Publish
 on:
   release:
@@ -37,7 +37,7 @@ on:
 | `dockerfile-path` |         | `/` | Path (file or directory) that is passed as the Buildx context.                                       |
 | `platforms` |       | `linux/amd64` | A comma-separated list of platforms to build images for (e.g. `linux/amd64,linux/arm64`)       |
 | `registry-url`  |          | `ghcr.io`                  | Registry host to log in to (e.g. `ghcr.io`, `docker.io`).                                            |
-| `registry-org`  |          | `${{ github.actor }}` (lower-case) | Organisation / user namespace on the registry (must be lower‑case for `ghcr.io`).                         |
+| `registry-org`  |          | `GITHUB_REPOSITORY_OWNER` (lower-case) | Organisation / user namespace on the registry (must be lower‑case for `ghcr.io`).                         |
 
 ---
 
