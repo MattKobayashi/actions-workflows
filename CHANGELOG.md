@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/MattKobayashi/actions-workflows/compare/v1.0.3...v1.1.0) (2025-04-20)
+
+
+### Features
+
+* Optionally download repository as artifact ([#14](https://github.com/MattKobayashi/actions-workflows/issues/14)) ([9718ad1](https://github.com/MattKobayashi/actions-workflows/commit/9718ad15575c94f7fa90e7f268a2f8995c4e678d))
+
 ## [1.0.3](https://github.com/MattKobayashi/actions-workflows/compare/v1.0.2...v1.0.3) (2025-04-20)
 
 
