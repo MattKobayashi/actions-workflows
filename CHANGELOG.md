@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/MattKobayashi/actions-workflows/compare/v1.0.0...v1.0.1) (2025-04-20)
+
+
+### Bug Fixes
+
+* Set default value for registry-org ([#8](https://github.com/MattKobayashi/actions-workflows/issues/8)) ([18320d7](https://github.com/MattKobayashi/actions-workflows/commit/18320d727d25380aae82f838a8b73a53dd14a774))
+
 ## 1.0.0 (2025-04-20)
 
 
