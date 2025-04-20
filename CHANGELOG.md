@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/MattKobayashi/actions-workflows/compare/v1.0.1...v1.0.2) (2025-04-20)
+
+
+### Bug Fixes
+
+* Remove ref definition from checkout action ([#10](https://github.com/MattKobayashi/actions-workflows/issues/10)) ([704c3d9](https://github.com/MattKobayashi/actions-workflows/commit/704c3d92a32a8de674b4f0058259d0ffd73cc690))
+
 ## [1.0.1](https://github.com/MattKobayashi/actions-workflows/compare/v1.0.0...v1.0.1) (2025-04-20)
 
 
