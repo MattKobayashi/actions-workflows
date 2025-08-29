@@ -33,14 +33,6 @@ jobs:
           merge-multiple: true
           name: ${{ inputs.artifact-name }}
           path: ${{ github.workspace }}
-      # Starting with actions/download-artifact v5, artifacts appear to be
-      # being extracted to a sub-directory instead of the specified path. This
-      # step is intended to resolve the issue if it occurs.
-      - continue-on-error: true
-        if: ${{ inputs.artifact-name != '' }}
-        name: Move repository artifact file(s)
-        run: |
-          mv ${{ github.workspace }}/${{ inputs.artifact-name }}/* ${{ github.workspace }}
       # Set up QEMU
       # https://github.com/docker/setup-qemu-action
       - name: Set up QEMU
