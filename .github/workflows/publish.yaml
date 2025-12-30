@@ -26,6 +26,11 @@ jobs:
       - if: ${{ inputs.artifact-name == '' }}
         name: Checkout repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      # DEBUG: List directory contents
+      - if: ${{ inputs.debug == true }}
+        name: "DEBUG: List directory contents"
+        run: |
+          ls -hal ${{ github.workspace }}
       # Download repository artifact
       # https://github.com/actions/download-artifact
       - if: ${{ inputs.artifact-name != '' }}
@@ -35,6 +40,11 @@ jobs:
           merge-multiple: true
           name: ${{ inputs.artifact-name }}
           path: ${{ github.workspace }}
+      # DEBUG: List directory contents
+      - if: ${{ inputs.debug == true }}
+        name: "DEBUG: List directory contents"
+        run: |
+          ls -hal ${{ github.workspace }}
       # Set up QEMU
       # https://github.com/docker/setup-qemu-action
       - name: Set up QEMU
@@ -76,6 +86,11 @@ name: Publish
 on:
   workflow_call:
     inputs:
+      debug:
+        default: false
+        description: "Enable workflow debug output"
+        required: false
+        type: boolean
       dockerfile-path:
         default: ${{ github.workspace }}
         description: "Path to your repository's Dockerfile"
