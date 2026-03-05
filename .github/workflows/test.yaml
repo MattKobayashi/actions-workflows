@@ -1,0 +1,75 @@
+---
+jobs:
+  image:
+    name: Image
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-24.04
+    steps:
+      # Set up Docker
+      # https://github.com/docker/setup-docker-action
+      - name: Set up Docker
+        uses: docker/setup-docker-action@1a6edb0ba9ac496f6850236981f15d8f9a82254d # v5.0.0
+      # Set up QEMU
+      # https://github.com/docker/setup-qemu-action
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@ce360397dd3f832beb865e1373c09c0e9f86d70a # v4.0.0
+      # Set up Docker Buildx
+      # https://github.com/docker/setup-buildx-action
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
+      # Set up Docker Compose
+      # https://github.com/docker/setup-compose-action
+      - name: Set up Docker Compose
+        uses: docker/setup-compose-action@112d3e30db3bf437d207fea57f22510569d1ab97 # v2.0.0
+      # Checkout repository
+      # https://github.com/actions/checkout
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      # Build and start image
+      - name: Build and start image
+        run: |
+          docker compose --progress plain up \
+            --build \
+            --attach=${{ inputs.test-container-name }} \
+            --exit-code-from=${{ inputs.test-container-name }}
+        working-directory: ${{ inputs.test-directory }}
+      # Run Docker Scout analysis
+      # https://github.com/docker/scout-action
+      - name: Docker Scout
+        id: docker-scout
+        uses: docker/scout-action@f8c776824083494ab0d56b8105ba2ca85c86e4de # v1.18.2
+        with:
+          command: cves,recommendations
+          image: local://${{ inputs.app-container-name }}
+          sarif-file: sarif.output.json
+      # Upload SARIF result
+      # https://github.com/github/codeql-action
+      - name: Upload SARIF result
+        id: upload-sarif
+        uses: github/codeql-action/upload-sarif@5e7a52feb2a3dfb87f88be2af33b9e2275f48de6 # v2.24.2
+        with:
+          sarif_file: sarif.output.json
+name: Test
+on:
+  workflow_call:
+    inputs:
+      app-container-name:
+        default: "app"
+        description: "The name of the container running the app being tested"
+        required: false
+        type: string
+      test-container-name:
+        default: "connection_test"
+        description: "The name of the container running the tests (connection, expected output, etc.)"
+        required: false
+        type: string
+      test-directory:
+        default: "tests"
+        description: "The directory containing your test docker-compose.yaml file"
+        required: false
+        type: string
+permissions:
+  contents: read
+  pull-requests: write
