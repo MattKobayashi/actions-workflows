@@ -13,10 +13,7 @@ Create a workflow in your project (e.g. `.github/workflows/test-image.yml`) and 
 ```yaml
 jobs:
   test:
-    permissions:
-      contents: read
-      pull-requests: write
-    uses: MattKobayashi/actions-workflows@v1.1.0
+    uses: MattKobayashi/actions-workflows/.github/workflows/test.yaml@6770ac44f4019b59c3da45c47702d0077354027f # v1.3.0
     with:
       app-container-name: app
       test-container-name: connection_test
@@ -28,6 +25,9 @@ on:
     branches:
       - main
   workflow_dispatch:
+permissions:
+  contents: read
+  pull-requests: write
 ```
 
 ---
@@ -97,7 +97,9 @@ Create a workflow in your project (e.g. `.github/workflows/publish-image.yml`) a
 ```yaml
 jobs:
   publish:
-    uses: MattKobayashi/actions-workflows@v1.1.0
+    name: Publish
+    secrets: inherit
+    uses: MattKobayashi/actions-workflows/.github/workflows/publish.yaml@6770ac44f4019b59c3da45c47702d0077354027f # v1.3.0
     with:
       image-name: my‑app
       dockerfile-path: ./
@@ -112,6 +114,9 @@ on:
     # Only build a new image alongside published releases
     types:
       - published
+permissions:
+  contents: read
+  packages: write
 ```
 
 ---
