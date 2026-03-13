@@ -11,9 +11,10 @@
 Create a workflow in your project (e.g. `.github/workflows/test-image.yml`) and call the workflow from this repository:
 
 ```yaml
+---
 jobs:
   test:
-    uses: MattKobayashi/actions-workflows/.github/workflows/test.yaml@6770ac44f4019b59c3da45c47702d0077354027f # v1.3.0
+    uses: MattKobayashi/actions-workflows/.github/workflows/test.yaml@686b2644a231ae70f253b9e1f63e978cddfecad5 # v1.4.1
     with:
       app-container-name: app
       test-container-name: connection_test
@@ -95,11 +96,12 @@ It is meant to be **called from another workflow file** in the _consuming_ repos
 Create a workflow in your project (e.g. `.github/workflows/publish-image.yml`) and call the workflow from this repository:
 
 ```yaml
+---
 jobs:
   publish:
     name: Publish
     secrets: inherit
-    uses: MattKobayashi/actions-workflows/.github/workflows/publish.yaml@6770ac44f4019b59c3da45c47702d0077354027f # v1.3.0
+    uses: MattKobayashi/actions-workflows/.github/workflows/publish.yaml@686b2644a231ae70f253b9e1f63e978cddfecad5 # v1.4.1
     with:
       image-name: my‑app
       dockerfile-path: ./
