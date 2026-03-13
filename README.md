@@ -14,6 +14,7 @@ Create a workflow in your project (e.g. `.github/workflows/test-image.yml`) and 
 ---
 jobs:
   test:
+    name: Test
     uses: MattKobayashi/actions-workflows/.github/workflows/test.yaml@686b2644a231ae70f253b9e1f63e978cddfecad5 # v1.4.1
     with:
       app-container-name: app
