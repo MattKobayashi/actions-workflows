@@ -5,7 +5,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       # Set up Docker
       # https://github.com/docker/setup-docker-action
